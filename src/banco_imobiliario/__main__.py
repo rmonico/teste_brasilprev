@@ -1,12 +1,19 @@
+"""
+Módulo principal
+"""
 # -*- coding: utf-8 -*-
+from argparse import ArgumentParser
 import logging
+import sys
 
 
 _logger = logging.getLogger(__name__)
 
 
 def parse_command_line():
-    from argparse import ArgumentParser
+    """
+    Apenas faz o parse da linha de comando
+    """
 
     parser = ArgumentParser(description='Jogo de banco imobiliário')
 
@@ -22,6 +29,9 @@ def parse_command_line():
 
 
 def main():
+    """
+    Método executado quando o programa é chamado pela linha de comando
+    """
     args = parse_command_line()
 
     logging.basicConfig(level=args.logger_level)
@@ -32,9 +42,8 @@ def main():
 
 
 if __name__ == '__main__':
-    returncode = main() or 0
+    STATUS = main() or 0
 
-    _logger.warning(f'Exiting with status {returncode}')
+    _logger.warning('Exiting with status %s', STATUS)
 
-    exit(returncode)
-
+    sys.exit(STATUS)
