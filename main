@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+cd "$(realpath $(dirname $0))/src"
+
+python3.10 -m banco_imobiliario "$@"
+
