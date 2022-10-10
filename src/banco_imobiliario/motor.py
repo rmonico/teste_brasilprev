@@ -18,6 +18,7 @@ class Motor:
     def turno(self):
         """
         Executa um turno para o jogador ativo
+        Retorna false caso o jogador tenha perdido a partida
         """
 
         casas = dado.lancar()
@@ -32,13 +33,14 @@ class Motor:
             self.tabuleiro.jogadores[propriedade.dono].saldo += propriedade.aluguel
             status.saldo -= propriedade.aluguel
 
-            perdeu = status.saldo < 0
-            if perdeu:
+            if status.saldo < 0:
                 jogador_ativo = self.tabuleiro.jogador_ativo()
                 self.tabuleiro.jogadores.pop(jogador_ativo)
                 for propriedade in self.tabuleiro.propriedades:
                     if propriedade.dono == self.tabuleiro.jogador_ativo():
                         propriedade.dono = None
+
+                return False
 
         else:
             if propriedade.valor <= status.saldo:
@@ -49,9 +51,18 @@ class Motor:
         if terminou_volta:
             self.tabuleiro.jogador_ativo_status().saldo += 100
 
+        return True
+
 
     def jogar(self):
         for _ in range(1, 1001):
-            self.turno()
+            for __ in range(len(self.tabuleiro.jogadores)):
+                if self.turno():
+                    self.tabuleiro.jogador_ativo_idx += 1
+                    if self.tabuleiro.jogador_ativo_idx == len(self.tabuleiro.jogadores):
+                        self.tabuleiro.jogador_ativo_idx = 0
+                else:
+                    if len(self.tabuleiro.jogadores) == 1:
+                        return list(self.tabuleiro.jogadores.keys())[0]
 
         return list(self.tabuleiro.jogadores.keys())[0]

@@ -186,3 +186,29 @@ class CondicoesSaidaTestCase(TestCase):
         vencedor = motor.jogar()
 
         self.assertEqual(vencedor, jogador)
+
+
+    def test_saida_somente_um_jogador(self):
+        """
+        DADO Que apenas um jogador restou com saldo positivo
+        ENTÃO O jogo é dado por finalizado
+            e o jogador remanescente é dado com vencedor
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(Jogador(), 80, 0, True) \
+            .add_jogador(jogador2 := Jogador(), 120, 0, False) \
+            .add_propriedade(100, 0) \
+            .add_propriedade(100, 0) \
+            .add_propriedade(100, 0) \
+            .build()
+
+        tabuleiro.propriedades[1].dono = jogador2
+
+        motor = Motor(tabuleiro)
+
+        dado.viciar([ 1, 2 ])
+
+        vencedor = motor.jogar()
+
+        self.assertEqual(vencedor, jogador2)
