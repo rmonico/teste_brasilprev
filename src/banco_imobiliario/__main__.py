@@ -52,10 +52,9 @@ def main():
 
     motor = Motor(tabuleiro)
 
-    breakpoint()
     vencedor = motor.jogar()
 
-    print(vencedor)
+    print(f'Vencedor: {vencedor.nome}')
 
     return 0
 
