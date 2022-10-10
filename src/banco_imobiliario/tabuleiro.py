@@ -67,10 +67,7 @@ class Tabuleiro:
 
 
     def jogador_ativo(self) -> Jogador:
-        if not self._ordem_jogadores:
-            self._ordem_jogadores = list(self.jogadores.keys())
-
-        return self._ordem_jogadores[self.jogador_ativo_idx]
+        return list(self.jogadores.keys())[self.jogador_ativo_idx]
 
 
     def jogador_ativo_status(self) -> JogadorStatus:
