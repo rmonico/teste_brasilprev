@@ -2,6 +2,7 @@
 Módulo de Motor
 """
 from .tabuleiro import Tabuleiro
+from . import dado
 
 
 class Motor:
@@ -19,4 +20,9 @@ class Motor:
         Executa um turno para o jogador ativo
         """
 
-        self.tabuleiro.jogador_ativo_status().saldo = 188
+        casas = dado.lancar()
+
+        terminou_volta = self.tabuleiro.andar(casas)
+
+        if terminou_volta:
+            self.tabuleiro.jogador_ativo_status().saldo += 100
