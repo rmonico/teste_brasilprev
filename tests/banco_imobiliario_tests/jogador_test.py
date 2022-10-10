@@ -8,7 +8,9 @@ class JogadorDefinido(Jogador):
 
     def __init__(self, comprar: bool):
         self._comprar = comprar
+        self.compra_oferecida = False
 
 
     def comprar(self, propriedade):
+        self.compra_oferecida = True
         return self._comprar
