@@ -144,7 +144,7 @@ class CondicoesSaidaTestCase(TestCase):
         """
 
         tabuleiro = TabuleiroBuilder() \
-            .add_jogador(jogador_ativo := JogadorDefinido(True), 10, 5, True) \
+            .add_jogador(jogador_ativo := Jogador(), 10, 5, True) \
             .add_jogador(jogador_dono := Jogador(), 100, 0, False) \
             .add_propriedade(30, 100) \
             .add_propriedade(30, 100, 19) \

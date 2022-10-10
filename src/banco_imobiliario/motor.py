@@ -31,6 +31,15 @@ class Motor:
         if propriedade.dono:
             self.tabuleiro.jogadores[propriedade.dono].saldo += propriedade.aluguel
             status.saldo -= propriedade.aluguel
+
+            perdeu = status.saldo < 0
+            if perdeu:
+                jogador_ativo = self.tabuleiro.jogador_ativo()
+                self.tabuleiro.jogadores.pop(jogador_ativo)
+                for propriedade in self.tabuleiro.propriedades:
+                    if propriedade.dono == self.tabuleiro.jogador_ativo():
+                        propriedade.dono = None
+
         else:
             if propriedade.valor <= status.saldo:
                 if self.tabuleiro.jogador_ativo().comprar(status, propriedade):
