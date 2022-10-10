@@ -2,6 +2,7 @@
 Módulo de agentes
 """
 from .jogador import Jogador
+import random
 
 
 class AgenteImpulsivo(Jogador):
@@ -30,3 +31,12 @@ class AgenteCauteloso(Jogador):
 
     def comprar(self, status, propriedade):
         return status.saldo >= propriedade.valor + 80
+
+
+class AgenteAleatorio(Jogador):
+    """
+    O jogador *aleatório* compra a propriedade que ele parar em cima com probabilidade de 50%.
+    """
+
+    def comprar(self, status, propriedade):
+        return random.getrandbits(1) == 1

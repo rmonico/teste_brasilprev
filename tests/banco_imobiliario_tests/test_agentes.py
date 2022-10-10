@@ -5,7 +5,7 @@ from unittest import TestCase
 from banco_imobiliario.motor import Motor
 from banco_imobiliario.tabuleiro import TabuleiroBuilder
 from banco_imobiliario import dado
-from banco_imobiliario.agentes import AgenteImpulsivo, AgenteExigente, AgenteCauteloso
+from banco_imobiliario.agentes import AgenteImpulsivo, AgenteExigente, AgenteCauteloso, AgenteAleatorio
 
 
 class AgenteImpulsivoTestCase(TestCase):
@@ -95,3 +95,37 @@ class AgenteCautelosoTestCase(TestCase):
 
         self.assertEqual(tabuleiro.propriedades[1].dono, jogador)
         self.assertEqual(tabuleiro.propriedades[2].dono, None)
+
+
+
+class AgenteAleatorioTestCase(TestCase):
+    """
+    Testes do agente aleatório
+    """
+
+    def test_comportameno(self):
+        """
+        DADO Que o agente seja aleatório
+        QUANDO Uma compra for oferecida
+        ENTÃO O agente deve aceitar a compra de forma aleatória em 50% dos casos
+        """
+
+        resultados = {
+            True: 0,
+            False: 0
+        }
+
+        agente = AgenteAleatorio()
+
+        for _ in range(10000):
+            resultados[agente.comprar(None, None)] += 1
+
+
+        # 4750 = (10000 / 2) - 5%
+        self.assertGreaterEqual(resultados[True], 4750)
+
+        # 5250 = (10000 / 2) + 5%
+        self.assertLessEqual(resultados[True], 5250)
+
+        self.assertGreaterEqual(resultados[False], 4750)
+        self.assertLessEqual(resultados[False], 5250)
