@@ -91,7 +91,8 @@ class Tabuleiro:
         Anda avança um jogador por um determinado número de casas.
         Retorna True case o jogador tenha completado uma volta.
         """
-        assert casas < len(self.propriedades), "Não é permitido andar mais casas de uma vez do que a quantidade de propriedades do tabuleiro!"
+        assert casas < len(self.propriedades), "Não é permitido andar mais" \
+        "casas de uma vez do que a quantidade de propriedades do tabuleiro!"
 
         self.jogador_ativo_status().posicao += casas
 
