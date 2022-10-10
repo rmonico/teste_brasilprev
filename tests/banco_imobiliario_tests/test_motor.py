@@ -134,6 +134,10 @@ class CondicoesSaidaTestCase(TestCase):
     Testes das condições de saída do motor
     """
 
+    def tearDown(self):
+        dado.resultados = dado.aleatorio()
+
+
     def test_jogador_saldo_negativo(self):
         """
         DADO Que o jogador ativo está em seu turno
@@ -161,3 +165,24 @@ class CondicoesSaidaTestCase(TestCase):
 
         self.assertFalse(jogador_ativo in tabuleiro.jogadores)
         self.assertEqual(tabuleiro.propriedades[0].dono, None)
+
+
+
+    def test_saida_por_timeout(self):
+        """
+        DADO Que a milésima rodada foi completada
+        ENTÃO O jogo é dado por finalizado
+            e o primeiro jogador da rodada é declarado vencedor
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador := JogadorDefinido(False), 10, 5, True) \
+            .add_jogador(JogadorDefinido(False), 100, 0, False) \
+            .add_propriedade(30, 100, 20) \
+            .build()
+
+        motor = Motor(tabuleiro)
+
+        vencedor = motor.jogar()
+
+        self.assertEqual(vencedor, jogador)

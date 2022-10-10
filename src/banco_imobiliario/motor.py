@@ -48,3 +48,9 @@ class Motor:
 
         if terminou_volta:
             self.tabuleiro.jogador_ativo_status().saldo += 100
+
+
+    def jogar(self):
+        for _ in range(1, 1001):
+            self.turno()
+
