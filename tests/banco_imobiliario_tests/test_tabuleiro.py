@@ -19,7 +19,7 @@ class TabuleiroTestCase(TestCase):
         """
 
         tabuleiro = TabuleiroBuilder() \
-            .add_jogador(jogador := Jogador(), 0, 4) \
+            .add_jogador(jogador := Jogador(), 0, 4, True) \
             .total_propriedades(20) \
             .build()
 
