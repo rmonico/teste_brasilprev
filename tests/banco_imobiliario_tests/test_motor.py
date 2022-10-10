@@ -47,6 +47,8 @@ class MotorTestCase(TestCase):
             .add_propriedade(30, 20) \
             .build()
 
+        tabuleiro.propriedades[9].dono = jogador_dono
+
         motor = Motor(tabuleiro)
 
         dado.viciar([ 4 ])

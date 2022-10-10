@@ -75,6 +75,7 @@ class Tabuleiro:
         self.jogador_ativo_idx = -1
         self._ordem_jogadores = None
 
+
     def jogador_ativo(self) -> Jogador:
         if not self._ordem_jogadores:
             self._ordem_jogadores = list(self.jogadores.keys())

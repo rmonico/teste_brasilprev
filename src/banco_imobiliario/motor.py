@@ -24,5 +24,11 @@ class Motor:
 
         terminou_volta = self.tabuleiro.andar(casas)
 
+        propriedade = self.tabuleiro.propriedades[self.tabuleiro.jogador_ativo_status().posicao]
+
+        if propriedade.dono:
+            self.tabuleiro.jogadores[propriedade.dono].saldo += propriedade.aluguel
+            self.tabuleiro.jogador_ativo_status().saldo -= propriedade.aluguel
+
         if terminou_volta:
             self.tabuleiro.jogador_ativo_status().saldo += 100
