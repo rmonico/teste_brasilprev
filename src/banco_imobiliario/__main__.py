@@ -5,6 +5,9 @@ Módulo principal
 from argparse import ArgumentParser
 import logging
 import sys
+from .motor import Motor
+from .tabuleiro import TabuleiroBuilder
+from .agentes import AgenteImpulsivo, AgenteExigente, AgenteCauteloso, AgenteAleatorio
 
 
 _logger = logging.getLogger(__name__)
@@ -37,6 +40,22 @@ def main():
     logging.basicConfig(level=args.logger_level)
 
     _logger.debug('Root logger configured to level %s', args.logger_level)
+
+
+    tabuleiro = TabuleiroBuilder() \
+        .add_jogador(AgenteImpulsivo(), 300, 0, True) \
+        .add_jogador(AgenteExigente(), 300, 0, False) \
+        .add_jogador(AgenteCauteloso(), 300, 0, False) \
+        .add_jogador(AgenteAleatorio(), 300, 0, False) \
+        .add_propriedade(20, 90, 20) \
+        .build()
+
+    motor = Motor(tabuleiro)
+
+    breakpoint()
+    vencedor = motor.jogar()
+
+    print(vencedor)
 
     return 0
 
