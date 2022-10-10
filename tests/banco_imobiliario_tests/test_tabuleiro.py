@@ -20,7 +20,7 @@ class TabuleiroTestCase(TestCase):
 
         tabuleiro = TabuleiroBuilder() \
             .add_jogador(jogador := Jogador(), 0, 4, True) \
-            .total_propriedades(20) \
+            .add_propriedade(20, 20) \
             .build()
 
         virou = tabuleiro.andar(3)
@@ -39,7 +39,7 @@ class TabuleiroTestCase(TestCase):
 
         tabuleiro = TabuleiroBuilder() \
             .add_jogador(jogador := Jogador(), 0, 17, True) \
-            .total_propriedades(20) \
+            .add_propriedade(20, 20) \
             .build()
 
         virou = tabuleiro.andar(5)

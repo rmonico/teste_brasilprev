@@ -6,6 +6,7 @@ from banco_imobiliario.tabuleiro import TabuleiroBuilder
 from banco_imobiliario.jogador import Jogador
 from banco_imobiliario.motor import Motor
 from banco_imobiliario import dado
+from banco_imobiliario.propriedade import Propriedade
 
 
 class MotorTestCase(TestCase):
@@ -21,7 +22,7 @@ class MotorTestCase(TestCase):
 
         tabuleiro = TabuleiroBuilder() \
             .add_jogador(jogador := Jogador(), 88, 17, True) \
-            .total_propriedades(20) \
+            .add_propriedade(20, 20) \
             .build()
 
         dado.viciar([ 4 ])

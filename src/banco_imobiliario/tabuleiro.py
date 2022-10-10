@@ -12,7 +12,7 @@ class TabuleiroBuilder:
 
     def __init__(self):
         self._jogadores = {}
-        self._total_propriedades = -1
+        self._propriedades = []
         self._jogador_ativo = -1
 
 
@@ -28,11 +28,12 @@ class TabuleiroBuilder:
         return self
 
 
-    def total_propriedades(self, total: int):
+    def add_propriedade(self, aluguel: int, quantidade: int = 1):
         """
-        Define o total de propriedades que o tabuleiro terá
+        Cria uma ou mais propriedades com o aluguel específicado
         """
-        self._total_propriedades = total
+        for _ in range(quantidade):
+            self._propriedades.append(Propriedade(aluguel))
 
         return self
 
@@ -42,11 +43,10 @@ class TabuleiroBuilder:
         Constrói a instância do tabuleiro
         """
         tabuleiro = Tabuleiro()
-        
+
         tabuleiro.jogador_ativo_idx = self._jogador_ativo
 
-        for _ in range(self._total_propriedades):
-            tabuleiro.propriedades.append(Propriedade())
+        tabuleiro.propriedades = self._propriedades
 
         for jogador, status in self._jogadores.items():
             tabuleiro.jogadores[jogador] = status
