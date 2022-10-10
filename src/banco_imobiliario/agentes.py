@@ -19,4 +19,4 @@ class AgenteExigente(Jogador):
     """
 
     def comprar(self, propriedade):
-        return True
+        return propriedade.aluguel > 50
