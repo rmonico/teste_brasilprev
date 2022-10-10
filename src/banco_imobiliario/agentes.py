@@ -9,7 +9,7 @@ class AgenteImpulsivo(Jogador):
     O jogador *impulsivo* compra qualquer propriedade sobre a qual ele parar.
     """
 
-    def comprar(self, propriedade):
+    def comprar(self, status, propriedade):
         return True
 
 
@@ -18,7 +18,7 @@ class AgenteExigente(Jogador):
     O jogador *exigente* compra qualquer propriedade, desde que o valor do aluguel dela seja maior do que 50.
     """
 
-    def comprar(self, propriedade):
+    def comprar(self, status, propriedade):
         return propriedade.aluguel > 50
 
 
@@ -28,5 +28,5 @@ class AgenteCauteloso(Jogador):
     de saldo sobrando depois de realizada a compra.
     """
 
-    def comprar(self, propriedade):
-        return True
+    def comprar(self, status, propriedade):
+        return status.saldo >= propriedade.valor + 80

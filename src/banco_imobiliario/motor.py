@@ -26,13 +26,15 @@ class Motor:
 
         propriedade = self.tabuleiro.propriedades[self.tabuleiro.jogador_ativo_status().posicao]
 
+        status = self.tabuleiro.jogador_ativo_status()
+
         if propriedade.dono:
             self.tabuleiro.jogadores[propriedade.dono].saldo += propriedade.aluguel
-            self.tabuleiro.jogador_ativo_status().saldo -= propriedade.aluguel
+            status.saldo -= propriedade.aluguel
         else:
-            if propriedade.valor <= self.tabuleiro.jogador_ativo_status().saldo:
-                if self.tabuleiro.jogador_ativo().comprar(propriedade):
-                    self.tabuleiro.jogador_ativo_status().saldo -= propriedade.valor
+            if propriedade.valor <= status.saldo:
+                if self.tabuleiro.jogador_ativo().comprar(status, propriedade):
+                    status.saldo -= propriedade.valor
                     propriedade.dono = self.tabuleiro.jogador_ativo()
 
         if terminou_volta:

@@ -11,6 +11,6 @@ class JogadorDefinido(Jogador):
         self.compra_oferecida = False
 
 
-    def comprar(self, propriedade):
+    def comprar(self, status, propriedade):
         self.compra_oferecida = True
         return self._comprar

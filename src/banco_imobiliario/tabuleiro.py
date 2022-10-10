@@ -1,7 +1,7 @@
 """
 Módulo de tabuleiro
 """
-from .jogador import Jogador
+from .jogador import Jogador, JogadorStatus
 from .propriedade import Propriedade
 
 
@@ -52,16 +52,6 @@ class TabuleiroBuilder:
             tabuleiro.jogadores[jogador] = status
 
         return tabuleiro
-
-
-class JogadorStatus:
-    """
-    Status de um jogador
-    """
-
-    def __init__(self, saldo, posicao):
-        self.saldo = saldo
-        self.posicao = posicao
 
 
 class Tabuleiro:
