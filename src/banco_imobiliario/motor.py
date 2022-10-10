@@ -54,3 +54,4 @@ class Motor:
         for _ in range(1, 1001):
             self.turno()
 
+        return list(self.tabuleiro.jogadores.keys())[0]
