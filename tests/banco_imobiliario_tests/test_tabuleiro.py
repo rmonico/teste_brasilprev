@@ -23,6 +23,8 @@ class TabuleiroTestCase(TestCase):
             .total_propriedades(20) \
             .build()
 
-        tabuleiro.andar(3)
+        virou = tabuleiro.andar(3)
+
+        self.assertFalse(virou)
 
         self.assertEqual(tabuleiro.jogadores[jogador].posicao, 7)
