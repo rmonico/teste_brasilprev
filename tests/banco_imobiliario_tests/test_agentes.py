@@ -5,7 +5,7 @@ from unittest import TestCase
 from banco_imobiliario.motor import Motor
 from banco_imobiliario.tabuleiro import TabuleiroBuilder
 from banco_imobiliario import dado
-from banco_imobiliario.agentes import AgenteImpulsivo, AgenteExigente
+from banco_imobiliario.agentes import AgenteImpulsivo, AgenteExigente, AgenteCauteloso
 
 
 class AgenteImpulsivoTestCase(TestCase):
@@ -53,6 +53,37 @@ class AgenteExigenteTestCase(TestCase):
             .add_propriedade(20, 100) \
             .add_propriedade(70, 100) \
             .add_propriedade(20, 100) \
+            .build()
+
+        dado.viciar([ 1, 1 ])
+
+        motor = Motor(tabuleiro)
+
+        motor.turno()
+        motor.turno()
+
+        self.assertEqual(tabuleiro.propriedades[1].dono, jogador)
+        self.assertEqual(tabuleiro.propriedades[2].dono, None)
+
+
+
+class AgenteCautelosoTestCase(TestCase):
+    """
+    Testes do agente cauteloso
+    """
+
+    def test_comportameno(self):
+        """
+        DADO Que o agente seja cauteloso
+        QUANDO Uma compra for oferecida
+        ENTÃO O agente deve aceitar a compra apenas se após a compra sobrar uma reserva de 80 de saldo
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador := AgenteCauteloso(), 180, 0, True) \
+            .add_propriedade(20, 0) \
+            .add_propriedade(20, 100) \
+            .add_propriedade(20, 10) \
             .build()
 
         dado.viciar([ 1, 1 ])

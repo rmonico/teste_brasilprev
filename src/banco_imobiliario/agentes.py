@@ -20,3 +20,13 @@ class AgenteExigente(Jogador):
 
     def comprar(self, propriedade):
         return propriedade.aluguel > 50
+
+
+class AgenteCauteloso(Jogador):
+    """
+    O jogador *cauteloso* compra qualquer propriedade desde que ele tenha uma reserva de 80
+    de saldo sobrando depois de realizada a compra.
+    """
+
+    def comprar(self, propriedade):
+        return True
