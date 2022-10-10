@@ -28,3 +28,22 @@ class TabuleiroTestCase(TestCase):
         self.assertFalse(virou)
 
         self.assertEqual(tabuleiro.jogadores[jogador].posicao, 7)
+
+
+    def test_andar_fim_volta(self):
+        """
+        DADO que o jogador ativo esteja na propriedade N
+        QUANDO for solicitado que o jogador ativo ande M casas, tal que M > N
+        ENTÃO a posição do jogador ativo passará a ser M - (tabuleiro.propriedades - N)
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador := Jogador(), 0, 17, True) \
+            .total_propriedades(20) \
+            .build()
+
+        virou = tabuleiro.andar(5)
+
+        self.assertTrue(virou)
+
+        self.assertEqual(tabuleiro.jogadores[jogador].posicao, 2)
