@@ -28,12 +28,12 @@ class TabuleiroBuilder:
         return self
 
 
-    def add_propriedade(self, aluguel: int, quantidade: int = 1):
+    def add_propriedade(self, aluguel: int, valor: int, quantidade: int = 1):
         """
         Cria uma ou mais propriedades com o aluguel específicado
         """
         for _ in range(quantidade):
-            self._propriedades.append(Propriedade(aluguel))
+            self._propriedades.append(Propriedade(aluguel, valor))
 
         return self
 
@@ -93,7 +93,7 @@ class Tabuleiro:
         Retorna True case o jogador tenha completado uma volta.
         """
         assert casas < len(self.propriedades), "Não é permitido andar mais" \
-        "casas de uma vez do que a quantidade de propriedades do tabuleiro!"
+        " casas de uma vez do que a quantidade de propriedades do tabuleiro!"
 
         self.jogador_ativo_status().posicao += casas
 

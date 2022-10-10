@@ -7,6 +7,7 @@ from banco_imobiliario.jogador import Jogador
 from banco_imobiliario.motor import Motor
 from banco_imobiliario import dado
 from banco_imobiliario.propriedade import Propriedade
+from .jogador_test import JogadorDefinido
 
 
 class MotorTestCase(TestCase):
@@ -21,8 +22,8 @@ class MotorTestCase(TestCase):
         """
 
         tabuleiro = TabuleiroBuilder() \
-            .add_jogador(jogador := Jogador(), 88, 17, True) \
-            .add_propriedade(20, 20) \
+            .add_jogador(jogador := JogadorDefinido(False), 88, 17, True) \
+            .add_propriedade(20, 100, 20) \
             .build()
 
         dado.viciar([ 4 ])
@@ -44,7 +45,7 @@ class MotorTestCase(TestCase):
         tabuleiro = TabuleiroBuilder() \
             .add_jogador(jogador_ativo := Jogador(), 100, 5, True) \
             .add_jogador(jogador_dono := Jogador(), 100, 0, False) \
-            .add_propriedade(30, 20) \
+            .add_propriedade(30, 100, 20) \
             .build()
 
         tabuleiro.propriedades[9].dono = jogador_dono
@@ -57,3 +58,25 @@ class MotorTestCase(TestCase):
 
         self.assertEqual(tabuleiro.jogadores[jogador_ativo].saldo, 70)
         self.assertEqual(tabuleiro.jogadores[jogador_dono].saldo, 130)
+
+
+    def test_comprar_propriedade(self):
+        """
+        DADO Que o jogador ativo esteja em seu turno
+        QUANDO O jogador ativo cair numa propriedade sem dono
+        ENTÃO O jogador ativo poderá comprar a propriedade
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador := JogadorDefinido(True), 100, 5, True) \
+            .add_propriedade(30, 80, 20) \
+            .build()
+
+        motor = Motor(tabuleiro)
+
+        dado.viciar([ 4 ])
+
+        motor.turno()
+
+        self.assertEqual(tabuleiro.jogadores[jogador].saldo, 20)
+        self.assertEqual(tabuleiro.propriedades[9].dono, jogador)
