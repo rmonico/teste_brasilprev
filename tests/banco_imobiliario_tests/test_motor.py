@@ -127,3 +127,37 @@ class MotorTestCase(TestCase):
         motor.turno()
 
         self.assertEqual(jogador.compra_oferecida, False)
+
+
+class CondicoesSaidaTestCase(TestCase):
+    """
+    Testes das condições de saída do motor
+    """
+
+    def test_jogador_saldo_negativo(self):
+        """
+        DADO Que o jogador ativo está em seu turno
+        QUANDO O jogador ativo cair numa propriedade que já tem dono
+            e o valor do aluguel for maior que seu saldo
+        ENTÃO o jogador ativo não joga mais
+            e suas propriedades ficam sem dono
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador_ativo := JogadorDefinido(True), 10, 5, True) \
+            .add_jogador(jogador_dono := Jogador(), 100, 0, False) \
+            .add_propriedade(30, 100) \
+            .add_propriedade(30, 100, 19) \
+            .build()
+
+        tabuleiro.propriedades[0].dono = jogador_ativo
+        tabuleiro.propriedades[9].dono = jogador_dono
+
+        motor = Motor(tabuleiro)
+
+        dado.viciar([ 4 ])
+
+        motor.turno()
+
+        self.assertFalse(jogador_ativo in tabuleiro.jogadores)
+        self.assertEqual(tabuleiro.propriedades[0].dono, None)
