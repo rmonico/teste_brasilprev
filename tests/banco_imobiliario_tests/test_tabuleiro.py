@@ -15,7 +15,7 @@ class TabuleiroTestCase(TestCase):
         """
         DADO que há jogador ativo
         QUANDO for solicitado que o jogador ativo ande N casas
-        DEVE a posição do jogador ativo deve avançar N casas a frente
+        ENTÃO a posição do jogador ativo deve avançar N casas a frente
         """
 
         tabuleiro = TabuleiroBuilder() \

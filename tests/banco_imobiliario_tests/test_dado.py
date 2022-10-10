@@ -13,7 +13,7 @@ class DadoTestCase(TestCase):
     def test_lancar_dado(self):
         """
         QUANDO o dado for lançado
-        DEVE retornar um número inteiro aleatório entre 1 e 6
+        ENTÃO deve retornar um número inteiro aleatório entre 1 e 6
         """
 
         for _ in range(10000):
