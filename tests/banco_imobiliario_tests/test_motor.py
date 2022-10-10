@@ -32,3 +32,26 @@ class MotorTestCase(TestCase):
         motor.turno()
 
         self.assertEqual(tabuleiro.jogadores[jogador].saldo, 188)
+
+
+    def test_pagar_aluguel(self):
+        """
+        DADO Que o jogador ativo está em seu turno
+        QUANDO O jogador ativo cair numa propriedade que já tem dono
+        ENTÃO o jogador ativo deve pagar o valor do aluguel ao dono da propriedade
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador_ativo := Jogador(), 100, 5, True) \
+            .add_jogador(jogador_dono := Jogador(), 100, 0, False) \
+            .add_propriedade(30, 20) \
+            .build()
+
+        motor = Motor(tabuleiro)
+
+        dado.viciar([ 4 ])
+
+        motor.turno()
+
+        self.assertEqual(tabuleiro.jogadores[jogador_ativo].saldo, 70)
+        self.assertEqual(tabuleiro.jogadores[jogador_dono].saldo, 130)
