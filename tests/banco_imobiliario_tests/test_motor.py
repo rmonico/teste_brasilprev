@@ -80,3 +80,26 @@ class MotorTestCase(TestCase):
 
         self.assertEqual(tabuleiro.jogadores[jogador].saldo, 20)
         self.assertEqual(tabuleiro.propriedades[9].dono, jogador)
+
+
+
+    def test_recusar_comprar_propriedade(self):
+        """
+        DADO Que o jogador ativo esteja em seu turno
+        QUANDO O jogador ativo cair numa propriedade sem dono
+        ENTÃO O jogador ativo poderá recusar a comprar a propriedade
+        """
+
+        tabuleiro = TabuleiroBuilder() \
+            .add_jogador(jogador := JogadorDefinido(False), 100, 5, True) \
+            .add_propriedade(30, 80, 20) \
+            .build()
+
+        motor = Motor(tabuleiro)
+
+        dado.viciar([ 4 ])
+
+        motor.turno()
+
+        self.assertEqual(tabuleiro.jogadores[jogador].saldo, 100)
+        self.assertEqual(tabuleiro.propriedades[9].dono, None)
